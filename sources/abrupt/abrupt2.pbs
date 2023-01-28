@@ -1,0 +1,23 @@
+#!/bin/tcsh
+#PBS -l nodes=1
+#PBS -o cl2.out
+#PBS -e cl2.err
+#PBS -l walltime=48:00:00
+#PBS -q mpiexpress
+
+# dont know if I need to load the module or not, so do it anyhow.
+module load matlab
+
+# This script submits a 12 hour OpenMP job to the mpiexpress queue
+# Set OpenMP environment variables here
+# There are 12 cores per node. To use hyperthreading set OMP_NUM_THREADS to 24.
+setenv OMP_NUM_THREADS 12 
+setenv PBS_O_WORKDIR /data/srk209/betaBlockers/abrupt
+# Change into the directory the job was submitted from
+cd ${PBS_O_WORKDIR}
+
+# Run the executable and redirect the output to a file
+# Replace my_bin with the name of your executable
+./run_abruptcl_driver2.sh /sw/matlab/R2011b
+
+# End of file 
